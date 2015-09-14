@@ -12,6 +12,7 @@
 		682054911BA124930054EC48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 682054901BA124930054EC48 /* Images.xcassets */; };
 		682054941BA124930054EC48 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682054921BA124930054EC48 /* MainMenu.xib */; };
 		682054A01BA124930054EC48 /* RCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6820549F1BA124930054EC48 /* RCloudTests.m */; };
+		682054AB1BA126050054EC48 /* RCloudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682054AA1BA126050054EC48 /* RCloudController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,8 @@
 		682054991BA124930054EC48 /* RCloudTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RCloudTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6820549E1BA124930054EC48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6820549F1BA124930054EC48 /* RCloudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCloudTests.m; sourceTree = "<group>"; };
+		682054A91BA126050054EC48 /* RCloudController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCloudController.h; sourceTree = "<group>"; };
+		682054AA1BA126050054EC48 /* RCloudController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCloudController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,8 @@
 			children = (
 				6820548B1BA124930054EC48 /* AppDelegate.h */,
 				6820548C1BA124930054EC48 /* AppDelegate.m */,
+				682054A91BA126050054EC48 /* RCloudController.h */,
+				682054AA1BA126050054EC48 /* RCloudController.m */,
 				682054901BA124930054EC48 /* Images.xcassets */,
 				682054921BA124930054EC48 /* MainMenu.xib */,
 				682054891BA124930054EC48 /* Supporting Files */,
@@ -211,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6820548F1BA124930054EC48 /* main.m in Sources */,
+				682054AB1BA126050054EC48 /* RCloudController.m in Sources */,
 				6820548D1BA124930054EC48 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
