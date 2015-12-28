@@ -12,7 +12,16 @@
 {
     IBOutlet NSTextField *label;
     IBOutlet NSProgressIndicator *progress;
-    BOOL started;
+    IBOutlet NSButton *bStart;
+    IBOutlet NSButton *bShutdown;
+    IBOutlet NSTextField *stSKS;
+    IBOutlet NSTextField *stRedis;
+    IBOutlet NSTextField *stSOLR;
+    IBOutlet NSTextField *stRserve;
+    BOOL started, anyUp;
 }
+
+- (IBAction) startRCloud: (id) dummy;
+- (IBAction) shutdownRCloud: (id) dummy;
 
 @end
