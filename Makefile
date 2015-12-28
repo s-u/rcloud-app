@@ -3,6 +3,9 @@ BASE=/Applications/RCloud.app
 ROOT=$(BASE)/Contents/Resources/rcloud
 
 all: SessionKeyServer SOLR redis info
+	mkdir -p $(ROOT)/data/gists
+	mkdir -p $(ROOT)/../Applications
+	@if [ ! -e $(ROOT)/conf/rcloud.conf ]; then cp $(WD)/rcloud.conf $(ROOT)/conf/; fi
 
 SessionKeyServer: $(ROOT)/services/SessionKeyServer/SessionKeyServer.jar
 SOLR: $(ROOT)/services/solr/example/run
@@ -37,6 +40,8 @@ $(ROOT)/services/solr/example/run: $(ROOT)/services/solr/example/start.jar
 $(ROOT)/services/redis: $(ROOT)
 	mkdir -p '$@-build'
 	(cd '$@-build' && curl -O http://download.redis.io/releases/redis-3.0.5.tar.gz && tar fxz redis-3.0.5.tar.gz && cd redis-3.0.5 && make -j8 && mkdir -p '$@' && mkdir -p '$(ROOT)/../bin' && cp -p src/redis-server '$(ROOT)/../bin/redis-server' && rm -rf '$@-build')
+
+#$(ROOT)/../Applications/Chromium.app:
 
 build/Release/RCloud.app:
 	@echo === build RCloud app
