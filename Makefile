@@ -2,11 +2,18 @@ WD=$(shell pwd)
 BASE=/Applications/RCloud.app
 ROOT=$(BASE)/Contents/Resources/rcloud
 
-all: SessionKeyServer SOLR redis
+all: SessionKeyServer SOLR redis info
 
 SessionKeyServer: $(ROOT)/services/SessionKeyServer/SessionKeyServer.jar
-SOLR: $(ROOT)/services/solr/example/start.jar
+SOLR: $(ROOT)/services/solr/example/run
 redis: $(ROOT)/services/redis
+info:
+	@echo ''
+	@echo '=== Final steps:'
+	@echo ' copy Chrominum.app to $(BASE)/Contents/Resources/Applications'
+	@echo ' ROOT=$(BASE)/Contents/Resources/rcloud R_LIBS=$(BASE)/Contents/Resources/rcloud/Rlib sh scripts/bootstrapR.sh '
+	@echo ' create $(BASE)/Contents/Resources/rcloud/conf/rcloud.conf'
+	@echo ''
 
 $(ROOT)/services/SessionKeyServer/SessionKeyServer.java: $(ROOT)
 	@echo === checking out Session Key Server
@@ -14,10 +21,18 @@ $(ROOT)/services/SessionKeyServer/SessionKeyServer.java: $(ROOT)
 
 $(ROOT)/services/SessionKeyServer/SessionKeyServer.jar: $(ROOT)/services/SessionKeyServer/SessionKeyServer.java
 	@echo === building Session Key Server
-	(cd '$(ROOT)/services/SessionKeyServer' && make && make pam)
+	(cd '$(ROOT)/services/SessionKeyServer' && make JFLAGS='-source 1.6 -target 1.6' && make JFLAGS='-source 1.6 -target 1.6' pam)
+
 
 $(ROOT)/services/solr/example/start.jar: $(ROOT)
 	@if [ ! -e '$(ROOT)/services/solr/example/start.jar' ]; then echo === installing SOLR; (cd '$(ROOT)/conf/solr' && sh solrsetup.sh '$(ROOT)/services'); fi
+
+
+$(ROOT)/services/solr/example/run: $(ROOT)/services/solr/example/start.jar
+	echo '#!/bin/sh' > "$@"
+	echo '' >> "$@"
+	echo 'java -jar start.jar >> solr.log' >> "$@"
+	chmod a+rx "$@"
 
 $(ROOT)/services/redis: $(ROOT)
 	mkdir -p '$@-build'
