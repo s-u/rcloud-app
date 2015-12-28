@@ -4,6 +4,7 @@ ROOT=$(BASE)/Contents/Resources/rcloud
 
 all: SessionKeyServer SOLR redis info
 	mkdir -p $(ROOT)/data/gists
+	mkdir -p $(ROOT)/Rlib
 	mkdir -p $(ROOT)/../Applications
 	@if [ ! -e $(ROOT)/conf/rcloud.conf ]; then cp $(WD)/rcloud.conf $(ROOT)/conf/; fi
 
@@ -15,7 +16,6 @@ info:
 	@echo '=== Final steps:'
 	@echo ' copy Chrominum.app to $(BASE)/Contents/Resources/Applications'
 	@echo ' ROOT=$(BASE)/Contents/Resources/rcloud R_LIBS=$(BASE)/Contents/Resources/rcloud/Rlib sh scripts/bootstrapR.sh '
-	@echo ' create $(BASE)/Contents/Resources/rcloud/conf/rcloud.conf'
 	@echo ''
 
 $(ROOT)/services/SessionKeyServer/SessionKeyServer.java: $(ROOT)
