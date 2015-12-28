@@ -203,14 +203,14 @@ static bool check_port(int port) {
         connect_port(6379, "SHUTDOWN\n");
     }
     if (check_port(8983)) { // SOLR shutdown - this is a hacky way, but at least it will work even if another instance of the launcher started the service
-        system("kill -INT `ps ax|grep java|grep start.jar | sed 's: .*::'`");
+        system("kill -INT `ps ax|grep java|grep start.jar | awk '{print $1}'`");
         int attempts = 0;
         while (check_port(8983) && attempts < 50) {
             [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
             attempts++;
         }
         if (check_port(8983)) {
-            system("kill `ps ax|grep java|grep start.jar | sed 's: .*::'`");
+            system("kill `ps ax|grep java|grep start.jar | awk '{print $1}'`");
             while (check_port(8983) && attempts < 100) {
                 [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
                 attempts++;
@@ -218,7 +218,7 @@ static bool check_port(int port) {
         }
     }
     if (check_port(4301)) { // SKS shutdown
-        system("kill -INT `ps ax|grep java|grep SessionKeyServer | sed 's: .*::'`");
+        system("kill -INT `ps ax|grep java|grep SessionKeyServer | awk '{print $1}'`");
         int attempts = 0;
         while (check_port(4301) && attempts < 50) {
             [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
