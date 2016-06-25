@@ -108,8 +108,9 @@ static bool check_port(int port) {
         [stSOLR setStringValue:@"starting..."];
         int attempts = 0;
         NSTask *aTask = [[NSTask alloc] init];
-        [aTask setCurrentDirectoryPath:[root stringByAppendingString:@"/rcloud/services/solr/example"]];
-        [aTask setLaunchPath: [root stringByAppendingString:@"/rcloud/services/solr/example/run"]];
+        [aTask setCurrentDirectoryPath:[root stringByAppendingString:@"/rcloud/services/solr"]];
+        [aTask setLaunchPath: [root stringByAppendingString:@"/rcloud/services/solr/bin/solr"]];
+        [aTask setArguments: [NSArray arrayWithObjects: @"start", nil]];
         [aTask launch];
         while (!check_port(8983)) {
             [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -203,7 +204,7 @@ static bool check_port(int port) {
         connect_port(6379, "SHUTDOWN\n");
     }
     if (check_port(8983)) { // SOLR shutdown - this is a hacky way, but at least it will work even if another instance of the launcher started the service
-        system("kill -INT `ps ax|grep java|grep start.jar | awk '{print $1}'`");
+        system([[root stringByAppendingString:@"/rcloud/services/solr/bin/solr stop"] UTF8String]);
         int attempts = 0;
         while (check_port(8983) && attempts < 50) {
             [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
